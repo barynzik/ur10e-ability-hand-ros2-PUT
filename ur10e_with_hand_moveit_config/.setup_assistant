@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: ur_simulation_gz
+    relative_path: urdf/ur_gz_with_hand.urdf.xacro
+    xacro_args: name:=ur ur_type:=ur10e
+  srdf:
+    relative_path: config/ur.srdf
+  package_settings:
+    author_name: ""
+    author_email: ""
+    generated_timestamp: 1782076767

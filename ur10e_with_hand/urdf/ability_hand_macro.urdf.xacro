@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="dummy_inertial">
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="ability_hand" params="prefix parent *origin">
+
+    <joint name="${prefix}tool0_to_hand" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}base_link"/>
+    </joint>
+
+    <link name="${prefix}base_link"><xacro:dummy_inertial/></link>
+    <link name="${prefix}base"><xacro:dummy_inertial/></link>
+    <joint name="${prefix}base_link_to_base" type="fixed">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}base"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Index -->
+    <link name="${prefix}index_L1">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/idx-F1.STL"/></geometry></visual>
+    </link>
+    <link name="${prefix}index_L2">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/thumb-F2-left.STL"/></geometry></visual>
+    </link>
+    <joint name="${prefix}index_q1" type="revolute">
+      <parent link="${prefix}base"/><child link="${prefix}index_L1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+    <joint name="${prefix}index_q2" type="revolute">
+      <parent link="${prefix}index_L1"/><child link="${prefix}index_L2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+
+    <!-- Middle -->
+    <link name="${prefix}middle_L1">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/idx-F1.STL"/></geometry></visual>
+    </link>
+    <link name="${prefix}middle_L2">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/thumb-F2-left.STL"/></geometry></visual>
+    </link>
+    <joint name="${prefix}middle_q1" type="revolute">
+      <parent link="${prefix}base"/><child link="${prefix}middle_L1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+    <joint name="${prefix}middle_q2" type="revolute">
+      <parent link="${prefix}middle_L1"/><child link="${prefix}middle_L2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+
+    <!-- Ring -->
+    <link name="${prefix}ring_L1">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/idx-F1.STL"/></geometry></visual>
+    </link>
+    <link name="${prefix}ring_L2">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/thumb-F2-left.STL"/></geometry></visual>
+    </link>
+    <joint name="${prefix}ring_q1" type="revolute">
+      <parent link="${prefix}base"/><child link="${prefix}ring_L1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+    <joint name="${prefix}ring_q2" type="revolute">
+      <parent link="${prefix}ring_L1"/><child link="${prefix}ring_L2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+
+    <!-- Pinky -->
+    <link name="${prefix}pinky_L1">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/idx-F1.STL"/></geometry></visual>
+    </link>
+    <link name="${prefix}pinky_L2">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/thumb-F2-left.STL"/></geometry></visual>
+    </link>
+    <joint name="${prefix}pinky_q1" type="revolute">
+      <parent link="${prefix}base"/><child link="${prefix}pinky_L1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+    <joint name="${prefix}pinky_q2" type="revolute">
+      <parent link="${prefix}pinky_L1"/><child link="${prefix}pinky_L2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+
+    <!-- Thumb -->
+    <link name="${prefix}thumb_L1">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/thumb-F1.STL"/></geometry></visual>
+    </link>
+    <link name="${prefix}thumb_L2">
+      <xacro:dummy_inertial/>
+      <visual><geometry><mesh filename="package://ah_urdf/models/thumb-F2-left.STL"/></geometry></visual>
+    </link>
+    <joint name="${prefix}thumb_q1" type="revolute">
+      <parent link="${prefix}base"/><child link="${prefix}thumb_L1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+    <joint name="${prefix}thumb_q2" type="revolute">
+      <parent link="${prefix}thumb_L1"/><child link="${prefix}thumb_L2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+
+    <!-- ros2_control for hand joints -->
+    <ros2_control name="ability_hand" type="system">
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
+      <joint name="${prefix}index_q1">
+        <command_interface name="position"/>
+        <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}middle_q1">
+        <command_interface name="position"/>
+        <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}ring_q1">
+        <command_interface name="position"/>
+        <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}pinky_q1">
+        <command_interface name="position"/>
+        <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}thumb_q1">
+        <command_interface name="position"/>
+        <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}thumb_q2">
+        <command_interface name="position"/>
+        <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}index_q2">
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}middle_q2">
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}ring_q2">
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}pinky_q2">
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>

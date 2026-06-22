@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ur10e_with_hand">
+
+  <!-- World link -->
+  <link name="world"/>
+
+  <!-- Include UR macro -->
+  <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
+
+  <!-- Instantiate UR10e -->
+  <xacro:ur_robot
+    name="ur10e"
+    tf_prefix=""
+    parent="world"
+    joint_limits_parameters_file="$(find ur_description)/config/ur10e/joint_limits.yaml"
+    kinematics_parameters_file="$(find ur_description)/config/ur10e/default_kinematics.yaml"
+    physical_parameters_file="$(find ur_description)/config/ur10e/physical_parameters.yaml"
+    visual_parameters_file="$(find ur_description)/config/ur10e/visual_parameters.yaml"
+  >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:ur_robot>
+
+  <!-- Include prefixed Ability Hand -->
+  <xacro:include filename="$(find ur10e_with_hand)/urdf/ability_hand_prefixed_clean.urdf.xacro"/>
+
+  <!-- Attach hand to UR10e tool0 -->
+ <joint name="tool0_to_hand" type="fixed">
+  <parent link="tool0"/>
+  <child link="hand_base_link"/>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+</joint>
+
+</robot>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ur10e_with_hand</name>
+  <version>0.0.1</version>
+  <description>UR10e with Ability Hand combined URDF</description>
+  <maintainer email="student@example.com">student</maintainer>
+  <license>MIT</license>
+  <depend>ur_description</depend>
+  <depend>ah_urdf</depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
