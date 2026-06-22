@@ -43,6 +43,7 @@ Video demonstration:
 ```text
 ur10e_with_hand/
 ur10e_with_hand_moveit_config/
+ur_simulation_gz/
 ```
 
 ## Technologies
