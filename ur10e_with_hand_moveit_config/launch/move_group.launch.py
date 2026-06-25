@@ -1,8 +1,13 @@
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from moveit_configs_utils import MoveItConfigsBuilder
 from moveit_configs_utils.launches import generate_move_group_launch
 
 
 def generate_launch_description():
+    use_sim_time = LaunchConfiguration("use_sim_time")
+
     moveit_config = (
         MoveItConfigsBuilder("ur", package_name="ur10e_with_hand_moveit_config")
         .to_moveit_configs()
@@ -12,6 +17,15 @@ def generate_launch_description():
 
     for action in ld.entities:
         if hasattr(action, "parameters"):
-            action.parameters.append({"use_sim_time": True})
+            action.parameters.append({"use_sim_time": use_sim_time})
 
-    return ld
+    return LaunchDescription(
+        [
+            DeclareLaunchArgument(
+                "use_sim_time",
+                default_value="true",
+                description="Use simulation time if true",
+            ),
+            *ld.entities,
+        ]
+    )
