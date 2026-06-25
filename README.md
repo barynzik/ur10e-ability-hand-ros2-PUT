@@ -56,6 +56,47 @@ ur_simulation_gz/
 * UR10e
 * Ability Hand
 
+## Running the project
+
+### Allow Docker to access the display
+
+```bash
+xhost +local:docker
+```
+
+## Running the project
+
+### Allow Docker to access the display
+
+```bash
+xhost +local:docker
+```
+
+### Launch Gazebo
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+
+export GZ_SIM_RESOURCE_PATH=$HOME/ros2_ws/src/ability-hand-ros2/src:$HOME/ros2_ws/src/ability-hand-ros2/src/ah_urdf:$GZ_SIM_RESOURCE_PATH
+
+ros2 launch ur_simulation_gz ur_sim_control.launch.py \
+description_file:=$HOME/ros2_ws/src/ur_simulation_gz/ur_simulation_gz/urdf/ur_gz_with_hand.urdf.xacro \
+world_file:=$HOME/ros2_ws/src/ur_simulation_gz/ur_simulation_gz/worlds/table_world.sdf
+```
+
+### Launch MoveIt
+
+```bash
+ros2 launch ur10e_with_hand_moveit_config move_group.launch.py use_sim_time:=true
+```
+
+### Launch RViz
+
+```bash
+ros2 launch ur10e_with_hand_moveit_config moveit_rviz.launch.py
+```
+
 ## Authors
 
 Borys Ovsiyenko, Pavel Sashko, Abdelrahman Tayel
